@@ -6,10 +6,10 @@ namespace Event_Plus.Domains
 {
     [Table("Instituicao")]
     [Index(nameof(CNPJ), IsUnique = true)]
-    public class Instituicao
+    public class TipoEvento
     {
         [Key]
-        public Guid IdInstituicao { get; set; }
+        public Guid IdTipoEvento { get; set; }
 
         [Column(TypeName = "VARCHAR(14)")]
         [Required(ErrorMessage = "O Cnpj do Evento é obrigatória")]
