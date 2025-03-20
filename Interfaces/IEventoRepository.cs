@@ -13,9 +13,7 @@
         List<Evento> ListarPorId(Guid id);
 
         Evento BuscarPorId(Guid id);
-
-
-            
-            > ListarProximosEventos(Guid id);
+     
+       List<Evento> ListarPrximosEventos(Guid id);
     }
 }

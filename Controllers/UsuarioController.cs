@@ -3,28 +3,32 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ProjetoEvent_.Controllers
 {
-    public class UsuarioControllers
+    public class UsuarioController
     {
-
         [Route("api/[controller]")]
         [ApiController]
         [Produces("application/json")]
         public class UsuarioController : Controller
         {
-            private readonly UsuarioController _usuarioController;
-            private object _usuarioRepository;
+            private readonly IUsuarioRepository _usuarioRepository;
 
-            public UsuarioController(UsuarioController usuarioController)
+            public UsuarioController(IUsuarioRepository usuarioRepository)
             {
-                _usuarioController = usuarioController;
+                _usuarioRepository = usuarioRepository;
             }
+
+            /// <summary>
+            /// Endpoint para Cadastrar Usuario
+            /// </summary>
+            /// <param name="usuario">id do genero buscado</param>
+            /// <returns></returns>
 
             [HttpPost]
             public IActionResult Post(Usuario usuario)
             {
                 try
                 {
-                    object  = _usuarioController.Cadastrar(usuario);
+                    _usuarioRepository.Cadastrar(usuario);
 
                     return StatusCode(201, usuario);
                 }
@@ -34,10 +38,11 @@ namespace ProjetoEvent_.Controllers
                 }
             }
 
-            private object Cadastrar(Usuario usuario)
-            {
-                throw new NotImplementedException();
-            }
+            /// <summary>
+            /// Endpoint para buscarum Usuario pelo seu id
+            /// </summary>
+            /// <param name="id">id do genero buscado</param>
+            /// <returns></returns>
 
             [HttpGet("{id}")]
             public IActionResult GetByid(Guid id)
@@ -60,4 +65,3 @@ namespace ProjetoEvent_.Controllers
         }
     }
 }
-

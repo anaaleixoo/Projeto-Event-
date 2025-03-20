@@ -1,6 +1,8 @@
-﻿namespace ProjetoEvent_.Interfaces
+﻿using Event_Plus.Domains;
+
+namespace ProjetoEvent_.Interfaces
 {
-    public interface TipoEvento
+    public interface ITipoEventoRepository
     {
         List<TipoEvento> Listar();
         void Cadastrar(TipoEvento novoTipoEvento);
@@ -11,8 +13,7 @@
 
         TipoEvento BuscarPorId(Guid id);
 
-        void Atualizar(Guid id, TipoEvento tipoEvento);
-
+       
 
 
     }

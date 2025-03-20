@@ -7,7 +7,9 @@ namespace EventPlus.Context
 {
     public class EventContext : DbContext
     {
-        public EventContext()
+        internal object tipoEvento;
+
+        public EventContext() 
         {
         }
 
@@ -23,6 +25,10 @@ namespace EventPlus.Context
         public DbSet<TipoEvento> TiposEventos { get; set; }
         public DbSet<TipoUsuario> TipoUsuario { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public object novoTipoEvento { get; internal set; }
+        public object NovoTiposUsuarios { get; internal set; }
+        public object TiposUsuarios { get; internal set; }
+        public object TipoUsuarios { get; internal set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
