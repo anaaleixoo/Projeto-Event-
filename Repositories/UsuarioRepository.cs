@@ -1,153 +1,75 @@
-﻿using static ProjetoEvent_.Repositories.UsuarioRepository;
+﻿using API_Filmes_SENAI.Domains;
+using EventPlus.Context;
+using EventPlus_.Utils;
+using Microsoft.EntityFrameworkCore;
+using ProjetoEvent_.Interfaces;
 
 namespace ProjetoEvent_.Repositories
 {
-    public class UsuarioRepository
+    public class UsuarioRepository : IUsuarioRepository
     {
-        public class UsuarioRepository : UsuarioRepository
+        private readonly EventContext _context;
+        public UsuarioRepository(EventContext context)
         {
-            private readonly UsuarioRepository _context;
+            _context = context;
+        }
 
-            public UsuarioRepository(Filmes_Context context)
+        public Usuario BuscarPorEmailESenha(string email, string senha)
+        {
+            try
             {
-                _context = context;
-            }
+                Usuario usuarioBuscado = _context.Usuarios.FirstOrDefault(u => u.Email == email)!;
 
-
-            public void Atualizar(Guid id, UsuarioRepository )
-            {
-                try
+                if (usuarioBuscado != null)
                 {
-                    Filme filmeBuscado = _context.Filme.Find(id)!;
+                    bool confere = Criptografia.CompararHash(senha, usuarioBuscado.Senha!);
 
-                    if (filmeBuscado != null)
+                    if (confere)
                     {
-                        filmeBuscado.Titulo = filme.Titulo;
-                        filmeBuscado.IdGenero = filme.IdGenero;
+                        return usuarioBuscado;
                     }
-
-                    _context.SaveChanges();
                 }
-                catch (Exception)
-                {
-
-                    throw;
-                }
+                return null!;
             }
-
-            public Filme BuscarPorID(Guid id)
+            catch (Exception)
             {
-                try
-                {
-                    Filme filmeBuscado = _context.Filme.Find(id)!;
-
-                    return filmeBuscado;
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
+                throw;
             }
+        }
 
-            public Filme BuscarPorId(Guid id)
+        public Usuario BuscarPorId(Guid id)
+        {
+            try
             {
-                throw new NotImplementedException();
+                Usuario usuarioBuscado = _context.Usuarios.Find(id)!;
+
+                if (usuarioBuscado != null)
+                {
+                    return usuarioBuscado;
+                }
+                return null!;
             }
-
-            public List<Filme> BuscarPorTitulo(string titulo)
+            catch (Exception)
             {
-                throw new NotImplementedException();
+                throw;
             }
+        }
 
-            public void Cadastrar(Filme novoFilme)
+        public void Cadastrar(Usuario novoUsuario)
+        {
+            try
             {
-                try
-                {
-                    // adiciona um novo genero na tabela Genero(BD)
-                    _context.Filme.Add(novoFilme);
 
-                    // após o cadastro, salva as alterações(BD)
-                    _context.SaveChanges();
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
+                _context.Usuarios.Add(novoUsuario);
+
+                _context.SaveChanges();
             }
-
-            public void Deletar(Guid id)
+            catch (Exception)
             {
-                try
-                {
-                    Filme filmeBuscado = _context.Filme.Find(id)!;
 
-                    if (filmeBuscado != null)
-                    {
-                        _context.Filme.Remove(filmeBuscado);
-                    }
-
-                    _context.SaveChanges();
-
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
-            }
-
-            public List<Filme> Listar()
-            {
-                try
-                {
-                    List<Filme> listaDeFilmes = _context.Filme
-                        .Include(g => g.Genero)
-
-                        //.Select(f => new Filme
-                        //{
-                        //    IdFilme = f.IdFilme,
-                        //    Titulo = f.Titulo,
-
-                        //    Genero = new Genero
-                        //    {
-                        //        IdGenero = f.IdGenero,
-                        //        Nome = f.Genero!.Nome
-                        //    }
-                        //})
-                        .ToList();
-
-
-                    return listaDeFilmes;
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
-            }
-
-            public List<Filme> ListarPorGenero(Guid idGenero)
-            {
-                try
-                {
-                    List<Filme> filmesPorGenero = _context.Filme
-                        .Include(f => f.Genero) // Inclui os dados do gênero
-                        .Where(f => f.IdGenero == idGenero) // Filtra os filmes pelo id do gênero
-                        .ToList();
-
-                    return filmesPorGenero;
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-            }
-
-            public static implicit operator UsuarioRepository(Filmes_Context v)
-            {
-                throw new NotImplementedException();
+                throw;
             }
         }
     }
 }
+

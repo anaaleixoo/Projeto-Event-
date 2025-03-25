@@ -1,6 +1,8 @@
-﻿namespace ProjetoEvent_.Interfaces
+﻿using API_Filmes_SENAI.Domains;
+
+namespace ProjetoEvent_.Interfaces
 {
-    public interface Usuario
+    public interface IUsuarioRepository
     {
         void Cadastrar(Usuario novoUsuario);
 

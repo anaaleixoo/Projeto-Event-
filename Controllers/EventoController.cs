@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjetoEvent_.Domains;
-using ProjetoEvent_.Interfaces;
 
 namespace EventPlus_.Controller
 {
@@ -13,11 +12,11 @@ namespace EventPlus_.Controller
     [Produces("application/json")]
     public class ComentarioEventoController : ControllerBase
     {
-        private readonly IComentarioEventoRepository _comentarioEventoRepository;
+        private readonly IComentarioEventoRepository ComentarioEventoRepository;
 
         public ComentarioEventoController(IComentarioEventoRepository comentarioEventoRepository)
         {
-            _comentarioEventoRepository = comentarioEventoRepository;
+            ComentarioEventoController = comentarioEventoRepository;
         }
 
         /// <summary>
@@ -29,7 +28,7 @@ namespace EventPlus_.Controller
         {
             try
             {
-                _comentarioEventoRepository.Cadastrar(novoComentarioEvento);
+                ComentarioEventoRepository.Cadastrar(novoComentarioEvento);
                 return Created();
             }
             catch (Exception error)
@@ -64,7 +63,7 @@ namespace EventPlus_.Controller
         {
             try
             {
-                List<ComentarioEvento> listaComentarioEvento = _comentarioEventoRepository.Listar();
+                List<ComentarioEvento> listaComentarioEvento = ComentarioEventoRepository.Listar();
                 return Ok(listaComentarioEvento);
             }
             catch (Exception error)

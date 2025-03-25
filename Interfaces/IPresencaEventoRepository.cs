@@ -1,6 +1,6 @@
 ﻿namespace ProjetoEvent_.Interfaces
 {
-    public interface PresencaEventoRepository
+    public interface IPresencaEventoRepository
     {
         void Deletar(Guid id);
 

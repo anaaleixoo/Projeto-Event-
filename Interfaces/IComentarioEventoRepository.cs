@@ -2,7 +2,7 @@
 
 namespace ProjetoEvent_.Interfaces
 {
-    public interface ComentarioEventoRepository
+    public interface IComentarioEventoRepository
     {
         void Cadastrar(ComentarioEvento comentarioEvento);
 
@@ -11,6 +11,7 @@ namespace ProjetoEvent_.Interfaces
         List<ComentarioEvento> Listar(Guid idComentario);
 
         ComentarioEvento BuscarPorIdUsuario(Guid UsuarioID, Guid EventosID);
+        List<ComentarioEvento> Listar();
     }
 }
 

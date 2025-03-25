@@ -1,6 +1,8 @@
-﻿namespace ProjetoEvent_.Interfaces
+﻿using Event_Plus.Domains;
+
+namespace ProjetoEvent_.Interfaces
 {
-    public interface Evento
+    public interface IEventoRepository
     {
         List<Evento> Listar();
 
